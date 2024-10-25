@@ -1,6 +1,5 @@
 import openai
 import random
-testFlag = False
 class ScriptGenerator:
     def __init__(self, modeSelect):
         openai.api_key = "PRIVATEAPIKEY"
@@ -9,15 +8,12 @@ class ScriptGenerator:
         self.system_msg = systemMsgArray[modeSelect]
 
     def GenerateScript(self):
-        if (testFlag == False):
-            messages=[{"role": "system", "content": self.system_msg}, {"role": "user", "content": 'input chat history here'}]
-            response = openai.ChatCompletion.create(
-                model = "gpt-3.5-turbo",
-                messages = messages,
-                temperature = random.uniform(0.4, 1.0),
-                max_tokens = 200,
-            )
-            content = response.choices[0].message["content"]
-        else:
-            content = "Test"
+        messages=[{"role": "system", "content": self.system_msg}, {"role": "user", "content": 'input chat history here'}]
+        response = openai.ChatCompletion.create(
+            model = "gpt-3.5-turbo",
+            messages = messages,
+            temperature = random.uniform(0.4, 1.0),
+            max_tokens = 200,
+        )
+        content = response.choices[0].message["content"]
         return content
