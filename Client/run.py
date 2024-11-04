@@ -14,7 +14,7 @@ class TuringTest(QWidget):
         self.peerColor = random.choice(['red', 'blue', 'yellow', 'magenta', 'orange', 'cyan'])
         self.msgCount = 0  # Initialize message count
         self.maxMsgCount = 20
-        self.testMode = 0;
+        self.testMode = 1;
         self.myTurn = 1
         # get server IP and port
         server_ip, checkOutput = QInputDialog.getText(self, 'Server IP', 'Enter Server IP Address:')
@@ -105,17 +105,17 @@ class TuringTest(QWidget):
                     # What does recieving look like?
                     self.recv_message(f'Test response to: {message}')
 
-    def recv_message(self, message):
+    def recv_message(self, writeMessage):
         if self.msgCount < self.maxMsgCount:
-            self.chat_display.append(f'<span style="color: {self.peerColor};">PEER:</span> {message}')
+            self.chat_display.append(f'<span style="color: {self.peerColor};">PEER:</span> {writeMessage}')
             self.msgCount += 1
             self.myTurn = 1
 
     def listen_for_messages(self):
         while True:
-            message = self.client_socket.recv(1024).decode()
-            if message:
-                self.recv_message(message)
+            recvMessage = self.client_socket.recv(1024).decode()
+            if recvMessage:
+                self.recv_message(recvMessage)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
