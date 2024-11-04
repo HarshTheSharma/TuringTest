@@ -3,6 +3,7 @@ import random
 import socket
 import threading
 import PyQt5
+import math
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QTextEdit, QLineEdit, QPushButton, QInputDialog
 from PyQt5.QtGui import QPalette, QColor, QFont, QIcon
 from PyQt5.QtCore import Qt
@@ -95,7 +96,7 @@ class TuringTest(QWidget):
         if self.msgCount < self.maxMsgCount and self.myTurn:
             message = self.message_input.text()
             if message:
-                self.chat_display.append(f'<span style="color: green;">YOU:</span> {message}')
+                self.chat_display.append(f'<span style="color: green;">YOU:</span> {message} <span style="color: gray;">[{math.floor(self.msgCount/2)+1}/10]</span>')
                 self.message_input.clear()
                 self.msgCount += 1
                 self.myTurn = 0  # Switch turns
@@ -107,7 +108,7 @@ class TuringTest(QWidget):
 
     def recv_message(self, writeMessage):
         if self.msgCount < self.maxMsgCount:
-            self.chat_display.append(f'<span style="color: {self.peerColor};">PEER:</span> {writeMessage}')
+            self.chat_display.append(f'<span style="color: {self.peerColor};">PEER:</span> {writeMessage} <span style="color: gray;">[{math.floor(self.msgCount/2)+1}/10]</span>')
             self.msgCount += 1
             self.myTurn = 1
 
