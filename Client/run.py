@@ -15,13 +15,15 @@ class TuringTest(QWidget):
         self.peerColor = random.choice(['red', 'blue', 'yellow', 'magenta', 'orange', 'cyan'])
         self.msgCount = 0  # Initialize message count
         self.maxMsgCount = 20
-        self.testMode = 1;
+        self.testMode = 0;
         self.myTurn = 1
         # get server IP and port
         server_ip, checkOutput = QInputDialog.getText(self, 'Server IP', 'Enter Server IP Address:')
         if not checkOutput: sys.exit()
         server_port, checkOutput = QInputDialog.getInt(self, 'Server Port', 'Enter Server Port Number:')
         if not checkOutput: sys.exit()
+        if server_ip == "test" or server_ip == "Test":
+            self.testMode = 1;
         if not self.testMode:
             # Connect to the server
             self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
