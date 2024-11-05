@@ -3,6 +3,7 @@ import random
 import socket
 import threading
 import PyQt5
+import pyi_splash
 import math
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QTextEdit, QLineEdit, QPushButton, QInputDialog
 from PyQt5.QtGui import QPalette, QColor, QFont, QIcon
@@ -18,6 +19,7 @@ class TuringTest(QWidget):
         self.testMode = 0;
         self.myTurn = 1
         # get server IP and port
+        pyi_splash.close()
         server_ip, checkOutput = QInputDialog.getText(self, 'Server IP', 'Enter Server IP Address:')
         if not checkOutput: sys.exit()
         server_port, checkOutput = QInputDialog.getInt(self, 'Server Port', 'Enter Server Port Number:')
