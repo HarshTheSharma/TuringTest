@@ -5,6 +5,7 @@ import threading
 import PyQt5
 import pyi_splash
 import math
+import urllib.request
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QTextEdit, QLineEdit, QPushButton, QInputDialog
 from PyQt5.QtGui import QPalette, QColor, QFont, QIcon
 from PyQt5.QtCore import Qt
@@ -30,6 +31,10 @@ class TuringTest(QWidget):
             # Connect to the server
             self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.server_socket.connect((server_ip, server_port))
+            self.externalIP = urllib.request.urlopen('https://v4.ident.me').read().decode('utf8')
+            self.port = random.randint(48000, 49151)
+            message = "CONNECT TO " + self.externalIP + ":" + self.port
+            self.server_socket.send(message.encode())
             # Receive peer's IP and port from the server
             peerInfo = self.server_socket.recv(1024).decode().split(':')
             if peerInfo[2] == "0":      #listen first

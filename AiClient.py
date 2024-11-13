@@ -7,8 +7,8 @@ class ScriptGenerator:
                           "INPUT PROMPT2 HERE"]
         self.system_msg = systemMsgArray[modeSelect]
 
-    def GenerateScript(self):
-        messages=[{"role": "system", "content": self.system_msg}, {"role": "user", "content": 'input chat history here'}]
+    def GenerateScript(self, messageHistory):
+        messages=[{"role": "system", "content": self.system_msg}, {"role": "user", "content": messageHistory}]
         response = openai.ChatCompletion.create(
             model = "gpt-3.5-turbo",
             messages = messages,
